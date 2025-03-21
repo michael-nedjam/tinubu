@@ -19,7 +19,12 @@ public class PoliceAssuranceService {
         return repository.findAll();
     }
 
-    public PoliceAssurance creerPolice(PoliceAssurance police) {
+    public PoliceAssurance creerPolice(String nom, PoliceAssurance.Status status, Date dateDebutCouverture, Date dateFinCouverture) {
+        PoliceAssurance police = new PoliceAssurance();
+        police.setNom(nom);
+        police.setStatus(status);
+        police.setDateDebutCouverture(dateDebutCouverture);
+        police.setDateFinCouverture(dateFinCouverture);
         police.setDateCreation(new Date());
         police.setDateMiseAJour(new Date());
         return repository.save(police);
@@ -29,12 +34,12 @@ public class PoliceAssuranceService {
         return repository.findById(id);
     }
 
-    public PoliceAssurance editerPolice(Integer id, PoliceAssurance detailsPolice) {
+    public PoliceAssurance editerPolice(Integer id, String nom, PoliceAssurance.Status status, Date dateDebutCouverture, Date dateFinCouverture) {
         PoliceAssurance police = repository.findById(id).orElseThrow();
-        police.setNom(detailsPolice.getNom());
-        police.setStatus(detailsPolice.getStatus());
-        police.setDateDebutCouverture(detailsPolice.getDateDebutCouverture());
-        police.setDateFinCouverture(detailsPolice.getDateFinCouverture());
+        police.setNom(nom);
+        police.setStatus(status);
+        police.setDateDebutCouverture(dateDebutCouverture);
+        police.setDateFinCouverture(dateFinCouverture);
         police.setDateMiseAJour(new Date());
         return repository.save(police);
     }
