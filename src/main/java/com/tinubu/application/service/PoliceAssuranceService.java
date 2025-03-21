@@ -2,6 +2,8 @@ package com.tinubu.application.service;
 
 import com.tinubu.application.model.PoliceAssurance;
 import com.tinubu.application.repository.PoliceAssuranceRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,8 @@ import java.util.Optional;
 
 @Service
 public class PoliceAssuranceService {
+
+    private static final Logger logger = LoggerFactory.getLogger(PoliceAssuranceService.class);
 
     @Autowired
     private PoliceAssuranceRepository repository;
@@ -27,7 +31,11 @@ public class PoliceAssuranceService {
         police.setDateFinCouverture(dateFinCouverture);
         police.setDateCreation(new Date());
         police.setDateMiseAJour(new Date());
-        return repository.save(police);
+        police = repository.save(police);
+
+        logger.info("Création d'une police d’assurance, id: {}", police.getId());
+
+        return police;
     }
 
     public Optional<PoliceAssurance> lirePolice(Integer id) {
@@ -35,6 +43,8 @@ public class PoliceAssuranceService {
     }
 
     public PoliceAssurance editerPolice(Integer id, String nom, PoliceAssurance.Status status, Date dateDebutCouverture, Date dateFinCouverture) {
+        logger.info("Edition d'une police d’assurance, id: {}", id);
+
         PoliceAssurance police = repository.findById(id).orElseThrow();
         police.setNom(nom);
         police.setStatus(status);
