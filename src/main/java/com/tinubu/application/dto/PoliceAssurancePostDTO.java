@@ -1,42 +1,17 @@
 package com.tinubu.application.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.Date;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class PoliceAssurancePostDTO {
     private String nom;
     private String status;
     private Date dateDebutCouverture;
     private Date dateFinCouverture;
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Date getDateDebutCouverture() {
-        return dateDebutCouverture;
-    }
-
-    public void setDateDebutCouverture(Date dateDebutCouverture) {
-        this.dateDebutCouverture = dateDebutCouverture;
-    }
-
-    public Date getDateFinCouverture() {
-        return dateFinCouverture;
-    }
-
-    public void setDateFinCouverture(Date dateFinCouverture) {
-        this.dateFinCouverture = dateFinCouverture;
-    }
 }
