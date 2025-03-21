@@ -5,6 +5,7 @@ import com.tinubu.application.dto.PoliceAssurancePutDTO;
 import com.tinubu.application.dto.PoliceAssuranceDTO;
 import com.tinubu.application.model.PoliceAssurance;
 import com.tinubu.application.service.PoliceAssuranceService;
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,7 @@ public class PoliceAssuranceController {
     }
 
     @PostMapping
-    public PoliceAssuranceDTO creerPolice(@RequestBody PoliceAssurancePostDTO policeDTO) {
+    public PoliceAssuranceDTO creerPolice(@Valid @RequestBody PoliceAssurancePostDTO policeDTO) {
         PoliceAssurance police = service.creerPolice(
                 policeDTO.getNom(),
                 PoliceAssurance.Status.valueOf(policeDTO.getStatus()),
@@ -49,7 +50,7 @@ public class PoliceAssuranceController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PoliceAssuranceDTO> editerPolice(@PathVariable Integer id, @RequestBody PoliceAssurancePutDTO policeDTO) {
+    public ResponseEntity<PoliceAssuranceDTO> editerPolice(@PathVariable Integer id, @Valid @RequestBody PoliceAssurancePutDTO policeDTO) {
         try {
             PoliceAssurance police = service.editerPolice(
                     id,
