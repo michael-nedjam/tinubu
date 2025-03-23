@@ -1,5 +1,6 @@
 package com.tinubu.application.dto;
 
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PoliceAssurancePutDTO {
-    @NotNull(message = "Le nom est obligatoire")
+    @NotEmpty(message = "Le nom est obligatoire")
     private String nom;
 
 
