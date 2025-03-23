@@ -12,6 +12,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 public class PoliceAssuranceServiceTest {
 
@@ -29,12 +33,15 @@ public class PoliceAssuranceServiceTest {
     @Test
     public void testListerPolices() {
         List<PoliceAssurance> mockPolices = Arrays.asList(new PoliceAssurance(), new PoliceAssurance());
-        when(repository.findAll()).thenReturn(mockPolices);
+        Pageable pageable = PageRequest.of(0, 10); // Exemple de Pageable
+        Page<PoliceAssurance> mockPage = new PageImpl<>(mockPolices, pageable, mockPolices.size());
 
-        List<PoliceAssurance> result = policeAssuranceService.listerPolices();
+        when(repository.findAll(pageable)).thenReturn(mockPage);
 
-        assertEquals(mockPolices, result);
-        verify(repository, times(1)).findAll();
+        Page<PoliceAssurance> result = policeAssuranceService.listerPolices(pageable);
+
+        assertEquals(mockPolices.size(), result.getContent().size());
+        verify(repository, times(1)).findAll(pageable);
     }
 
     @Test

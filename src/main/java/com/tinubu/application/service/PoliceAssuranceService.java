@@ -6,9 +6,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,8 +20,8 @@ public class PoliceAssuranceService {
     @Autowired
     private PoliceAssuranceRepository repository;
 
-    public List<PoliceAssurance> listerPolices() {
-        return repository.findAll();
+    public Page<PoliceAssurance> listerPolices(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
     public PoliceAssurance creerPolice(String nom, PoliceAssurance.Status status, Date dateDebutCouverture, Date dateFinCouverture) {

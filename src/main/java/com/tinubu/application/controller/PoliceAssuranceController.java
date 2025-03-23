@@ -10,6 +10,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,10 +27,9 @@ public class PoliceAssuranceController {
     private ModelMapper modelMapper;
 
     @GetMapping
-    public List<PoliceAssuranceDTO> listerPolices() {
-        return service.listerPolices().stream()
-                .map(police -> modelMapper.map(police, PoliceAssuranceDTO.class))
-                .collect(Collectors.toList());
+    public Page<PoliceAssuranceDTO> listerPolices(Pageable pageable) {
+        Page<PoliceAssurance> policePage = service.listerPolices(pageable);
+        return policePage.map(police -> modelMapper.map(police, PoliceAssuranceDTO.class));
     }
 
     @PostMapping
