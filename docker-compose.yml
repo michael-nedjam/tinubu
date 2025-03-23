@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: assurance_user
+      POSTGRES_PASSWORD: assurance_pwd
+    ports:
+      - "5432:5432"
+    networks:
+      - assurance-network
+
+  app:
+    image: assurance-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/postgres
+      SPRING_DATASOURCE_USERNAME: assurance_user
+      SPRING_DATASOURCE_PASSWORD: assurance_pwd
+    depends_on:
+      - db
+    networks:
+      - assurance-network
+
+networks:
+  assurance-network:
+    driver: bridge

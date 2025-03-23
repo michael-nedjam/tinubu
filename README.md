@@ -8,14 +8,37 @@ Cette application Spring Boot permet de gérer les polices d'assurance. Elle uti
 - Maven
 - PostgreSQL
 
-## Exécution Localement
+## Exécution avec Docker (App + DB)
 
+Pour démarrer l'application et la base de données avec Docker Compose :
+
+```bash
+docker-compose up --build
+```
+
+## Exécution Localement
 Construire l'application:
-    mvn clean install
+```bash
+mvn clean install
+```
 Exécuter l'application:
-    java -jar target/assurance-app.jar
-ou
-    mvn spring-boot:run
+```bash
+mvn spring-boot:run
+```
+
+### Construire l'Image Docker 
+
+Pour construire l'image Docker de l'application, exécutez la commande suivante dans le répertoire racine du projet :
+
+```bash
+docker build -t assurance-app .
+```
+
+### Exécuter le Conteneur Docker
+
+```bash
+docker run -p 8080:8080 assurance-app
+```
 
 ## Endpoints API
 
